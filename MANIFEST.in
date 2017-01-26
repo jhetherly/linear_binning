@@ -1,0 +1,17 @@
+# NOTE: before upload
+# update version number here and GitHub
+# pandoc --from=markdown --to=rst --output=README.rst README.md
+# python setup.py register -r pypi
+# python setup.py sdist upload -r pypi
+
+include setup.cfg
+include setup.py
+include README.rst
+include CHANGES.txt
+include linear_binning/__init__.py
+include linear_binning/linear_binning.cpp
+include linear_binning/linear_binning.pyx
+include linear_binning/linear_binning_impl.cpp
+include linear_binning/linear_binning_impl.hpp
+recursive-include linear_binning/boost *
+recursive-include linear_binning/test *
