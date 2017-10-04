@@ -5,6 +5,7 @@
 import numpy as np
 cimport numpy as np
 #from libcpp cimport double
+#from libcpp cimport uint64
 
 cdef extern from "linear_binning_impl.hpp":
     void linear_binning_impl(const unsigned long D,
@@ -17,16 +18,16 @@ cdef extern from "linear_binning_impl.hpp":
                              double *result_X,
                              double *result_weights)
 
-def linear_binning (np.ndarray[double, ndim=2, mode='c'] X,
-                    np.ndarray[double, ndim=1, mode='c'] weights,
-                    np.ndarray[double, ndim=2, mode='c'] extents,
-                    np.ndarray[unsigned long, ndim=1, mode='c'] sizes):
-    """Perform a linear binning (optimized for sparsity)
+def cython_linear_binning (np.ndarray[double, ndim=2, mode='c'] X,
+                           np.ndarray[double, ndim=1, mode='c'] weights,
+                           np.ndarray[double, ndim=2, mode='c'] extents,
+                           np.ndarray[unsigned long, ndim=1, mode='c'] sizes):
+    """Performs a linear binning on weighted data
 
-    This algorithm is able to opperate on N data point in D dimensions and
+    This algorithm is able to operate on N data point in D dimensions and
     produces a number of grid points, G=sizes.prod(), with their corresponding
     weights.
-    The input arrays need to be c-contiguous and strictly adhear to the
+    The input arrays need to be c-contiguous and strictly adhere to the
     required types (double and unsigned long).
 
     Parameters
@@ -36,7 +37,7 @@ def linear_binning (np.ndarray[double, ndim=2, mode='c'] X,
     weights : 1D numpy array with shape (N) of type double
         data weights
     extents : 2D numpy array with shape (D, 2) of type double
-        limits of grid (all data outside this retangular region is under- or
+        limits of grid (all data outside this rectangular region is under- or
         overflow)
     sizes : 1D numpy array with shape (D) of type unsigned long
         number of bin centers (grid points) in each dimension

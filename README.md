@@ -58,9 +58,10 @@ or
 
 This constructs one million random 2D points in the unit square with random
 weights and constructs a grid of ``51`` by ``51`` (can be different along
-different dimensions) linearly binned "bin centers."
+each dimensions) linearly binned "bin centers."
 The boundaries of the grid of bin centers are specified by ``extents`` and can
-be thought of as the under- and overflow bins.
+be thought of as the under- and overflow bins (i.e. these are the coordinates
+of the first and last bin centers).
 
 ```python
 from linear_binning import linear_binning
@@ -75,8 +76,7 @@ D=2
 sample_coords = np.random.random(size=(n_samples, D))
 sample_weights = np.random.random(size=n_samples)
 extents = np.tile([0., 1.], D).reshape((D, 2))
-# n_bins must be of type "unsigned long"
-n_bins = np.full(D, 51, dtype=np.dtype('uint64'))
+n_bins = np.full(D, 51)
 
 coords, weights = linear_binning(sample_coords, sample_weights,
                                  extents, n_bins)

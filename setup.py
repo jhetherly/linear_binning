@@ -63,7 +63,7 @@ long_description = read('README.rst', 'CHANGES.txt')
 
 setup(
     name="linear_binning",
-    version='1.0.2',
+    version='1.1.0',
     url='https://github.com/jhetherly/linear_binning',
     license='MIT',
     author='Jeff Hetherly',
